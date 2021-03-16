@@ -8,38 +8,42 @@
 <h1> Registration </h1>
 
 <?php 
-
 $validatename="";
 $validateemail="";
 $validateall="";
 $validatepass="";
 $validateconfirmpass="";
 
+?>
 
-if(empty($_REQUEST["gname"]) || (strlrn($_REQUEST["gname"])<5) || !preg_match("/^[a-zA-Z0-9_.-]*$/", $_REQUEST["gname"])){
+<?php
+if (isset($_REQUEST['submit'])) {
+
+
+if(empty($_REQUEST["gname"]) || (strlen($_REQUEST["gname"])<5) || !preg_match("/^[a-zA-Z0-9_.-]*$/", $_REQUEST["gname"])){
 $validatename = "Invalid user name<br>
 User Name can contain alpha numeric characters, period, dash or underscore only<br>User Name must contain at least five characters<br>";
 }
-if(empty($_REQUEST["jname"]) || (strlrn($_REQUEST["jname"])<8) || !preg_match("/^[a-zA-Z0-9@#$%]+$/", $_REQUEST["jname"])){
+if(empty($_REQUEST["jname"]) || (strlen($_REQUEST["jname"])<8) || !preg_match("/^[a-zA-Z0-9@#$%]+$/", $_REQUEST["jname"])){
     $validatepass = "Invalid password<br>
     Password must not be less than eight characters<br>Password must contain at least one of the special characters (@, #, $, %)s<br>";
 }
 if($_REQUEST["kname"] != $_REQUEST["jname"]){
     $validateconfirmpass ="Password did not match";
 }
-if(!preg_match("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$^", $_REQUEST["iname"]) ){  
+if(!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i", $_REQUEST["iname"]) ){  
     $validateemail = "Invalid email";
 }
-if(empty($_REQUEST["gname"]) || empty($_REQUEST["fname"]) ||empty($_REQUEST["iname"]) ||empty($_REQUEST["jname"]) ||empty($_REQUEST["kname"])){
+if(empty($_REQUEST["gname"]) || empty($_REQUEST["fname"]) ||empty($_REQUEST["iname"]) ||empty($_REQUEST["jname"]) ||empty($_REQUEST["kname"]) ||empty($_REQUEST["gender"]) ||empty($_REQUEST["birthday"])){
     $validateall = "Fill all the forms";
 }
-
-
+}
 ?>
 
 
 <form>
 <table>
+
 <tr>
 <td>
 First Name: </td><td><input type="text" id="f" name="fname"></td>
@@ -92,7 +96,7 @@ Other
 <?php echo $validateall?>
 
 <table><tr><td>
-<input type ="submit" value="Submit"></td>
+<input name = "submit" type ="submit" value="Submit"></td>
 
 <td>
 <input type ="reset" value="Reset"></td>
