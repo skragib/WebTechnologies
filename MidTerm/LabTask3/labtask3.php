@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Labtask 2</title>
+<title>Labtask 3</title>
 
 </head>
 <body>
@@ -14,6 +14,8 @@ $validateemail="";
 $validateall="";
 $validatepass="";
 $validateconfirmpass="";
+$gender="";
+
 
 ?>
 
@@ -35,20 +37,23 @@ if(empty($_REQUEST["jname"]) || (strlen($_REQUEST["jname"])<8) || !preg_match("/
     Password must not be less than eight characters<br>Password must contain at least one of the special characters (@, #, $, %)s<br>";
 }
 if($_REQUEST["kname"] != $_REQUEST["jname"]){
-    $validateconfirmpass ="Password did not match";
+    $validateconfirmpass ="Password did not match<br>";
 }
 if(!preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i", $_REQUEST["iname"]) ){  
-    $validateemail = "Invalid email";
+    $validateemail = "Invalid email<br>";
 }
-if(empty($_REQUEST["gname"]) || empty($_REQUEST["fname"]) ||empty($_REQUEST["iname"]) ||empty($_REQUEST["jname"]) ||empty($_REQUEST["kname"])){
-    $validateall = "Fill all the forms";
+if(empty($_REQUEST["gname"]) || empty($_REQUEST["fname"]) ||empty($_REQUEST["iname"]) ||empty($_REQUEST["jname"]) ||empty($_REQUEST["kname"]) ||empty($_REQUEST["gender"]) ||empty($_REQUEST["birthday"])){
+    $validateall = "Fill all the forms<br>";
 }
-$connection = new db();
+else{
+    $connection = new db();
 $conobj=$connection->OpenCon();
-
 $userQuery=$connection->enterdata($conobj,"information",$firstname,$email,$username,$password,$gender,$dateofbirth);
 $connection->CloseCon($conobj);
 }
+}
+
+
 ?>
 
 
@@ -88,7 +93,7 @@ else{
 }
 ?>
 <p>Gender:</p>
-<input type="radio" id="male" name="gender" value="male">
+<input type="radio" id="male" name="gender" value="male" checked="checked">
 Male
 <input type="radio" id="female" name="gender" value="female">
 Female
@@ -116,5 +121,7 @@ Other
 
 
 </form>
+
+
 </body>
 </html>
